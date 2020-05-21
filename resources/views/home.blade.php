@@ -1,23 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <div class="lg:flex lg:justify-between">
+        {{-- first Panel of links --}}
+        <div class="lg:w-32">
+            @include('_sidebar-links')
+        </div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        {{-- Timepline Panel --}}
+        <div class="lg:flex-1 lg:mx-10 lg:mb-10" style="max-width: 700px">
+            @include('_publish-tweet-panel')
 
-                    You are logged in!
-                </div>
+            <div class="border border-gray-300 rounded-lg">
+                @include('_tweet')
+                @include('_tweet')
+                @include('_tweet')
+                @include('_tweet')
+                @include('_tweet')
             </div>
         </div>
+
+        {{-- friends panel --}}
+        <div class="lg:w-1/6">
+            @include('_friends-list')
+        </div>
+
     </div>
-</div>
 @endsection
