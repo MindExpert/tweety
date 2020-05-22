@@ -42,9 +42,19 @@ class User extends Authenticatable
         return "https://i.pravatar.cc/40?u=" . $this->email;
     }
 
+    // include all user's tweets as well as tweets of everyone they follow in descending order by date
     public function timeline()
     {
-       return Tweet::where('user_id', $this->id)->latest()->get();
+        // get all Ids that the loged in user follows
+        $ids = $this->follows->pluck('id');
+        //add the users id to that collection
+        $ids->push($this->id);
+        return Tweet::whereIn('user_id', $ids)->latest()->get();
+    }
+
+    public function tweets()
+    {
+       return $this->hasMany(Tweet::class);;
     }
 
     // method to creat a new relationship

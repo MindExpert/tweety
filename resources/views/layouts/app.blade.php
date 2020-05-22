@@ -31,7 +31,23 @@
 
         <section class="px-8">
             <main class="container mx-auto">
-                @yield('content')
+                <div class="lg:flex lg:justify-between">
+                    {{-- first Panel of links --}}
+                    <div class="lg:w-32">
+                        @include('_sidebar-links')
+                    </div>
+            
+                    {{-- Timepline Panel --}}
+                    <div class="lg:flex-1 lg:mx-10 lg:mb-10" style="max-width: 700px">
+                        @yield('content')
+                    </div>
+            
+                    {{-- friends panel --}}
+                    <div class="lg:w-1/6">
+                        @include('_friends-list')
+                    </div>
+            
+                </div>
             </main>
         </section>
     </div>
