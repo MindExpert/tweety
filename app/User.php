@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return "https://i.pravatar.cc/40?u=" . $this->email;
+        return "https://i.pravatar.cc/200?u=" . $this->email;
     }
 
     // include all user's tweets as well as tweets of everyone they follow in descending order by date
@@ -56,16 +56,4 @@ class User extends Authenticatable
     {
        return $this->hasMany(Tweet::class);;
     }
-
-    // method to creat a new relationship
-    public function follow(User $user)
-    {
-        return $this->follows()->save($user);
-    }
-
-    public function follows()
-    {
-        # a user can follow any number of users...
-        return $this->belongsToMany(User::class, 'follows' , 'user_id', 'following_user_id');
-    } 
 }
