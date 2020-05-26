@@ -30,21 +30,11 @@
                     >
                         Edit Profile
                     </a>
-                    <form method="POST"
-                        action=""
-                    >
-                        @csrf
-
-                        <button type="submit"
-                                class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs"
-                        >
-                            Follow
-                        </button>
-                    </form>
+                  
 
                 {{-- @endcan --}}
 
-                {{-- <x-follow-button :user="$user"></x-follow-button> --}}
+                <x-follow-button :user="$user"></x-follow-button>
             </div>
         </div>
 
