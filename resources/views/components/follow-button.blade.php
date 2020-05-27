@@ -1,28 +1,16 @@
-{{-- @auth
+@auth
     @unless (current_user()->is($user))
         <form method="POST"
-              action="{{ route('follow', $user->username) }}"
+            action="/profiles/{{ $user->name}}/follow"
         >
-            @csrf
+        @csrf
 
-            <button type="submit"
-                    class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs"
-            >
-                {{ current_user()->following($user) ? 'Unfollow Me' : 'Follow Me' }}
-            </button>
+        <button type="submit"
+                class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs"
+        >
+            {{ current_user()->following($user) ? 'Unfollow me!': 'Follow me!' }}
+        </button>
+
         </form>
     @endunless
-@endauth --}}
-
-
-<form method="POST"
-action="/profiles/{{ $user->name}}/follow"
->
-@csrf
-
-<button type="submit"
-        class="bg-blue-500 rounded-full shadow py-2 px-4 text-white text-xs"
->
-    {{ auth()->user()->following($user) ? 'Unfollow me!': 'Follow me!' }}
-</button>
-</form>
+@endauth

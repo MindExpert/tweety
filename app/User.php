@@ -54,6 +54,19 @@ class User extends Authenticatable
 
     public function tweets()
     {
-       return $this->hasMany(Tweet::class);;
+       return $this->hasMany(Tweet::class)->latest();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    // this will be a string that  represents a path to the model
+    public function path($append = '')
+    {
+        $path = route('profile', $this->name);
+
+        return $append ? "{$path}/{$append}" : $path;
     }
 }
