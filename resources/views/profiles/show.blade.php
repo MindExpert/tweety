@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')        
+<x-app>   
     <header class="mb-6 relative">
         <div class="relative">
             <img src="/images/default-profile-banner.jpg"
@@ -17,7 +15,7 @@
         </div>
 
         <div class="flex justify-between items-center mb-6">
-            <div style="max-width: 270px">
+            <div style="max-width: 260px">
                 <h2 class="font-bold text-2xl mb-0">{{ $user->name }}</h2>
                 <p class="text-sm">Joined {{ $user->created_at->diffForHumans() }}</p>
             </div>
@@ -45,7 +43,7 @@
 
     {{-- Include timeline with current user tweets (<- thats a relationship) --}}
     @include('_timeline', [
-        'tweets' => $user->tweets
+        'tweets' => $tweets
     ])
 
-@endsection
+</x-app>   

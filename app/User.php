@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'name', 'avatar', 'email', 'password',
     ];
 
     /**
@@ -37,9 +37,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute()
+
+    public function getAvatarAttribute($value)
     {
-        return "https://i.pravatar.cc/200?u=" . $this->email;
+        // asset is a helper function that creates a full URL to the asset in your application
+        if ($value) {
+            return asset('storage/'.$value);
+        }
+        return asset('/images/default-avatar.jpeg');
+        // return "https://i.pravatar.cc/200?u=" . $this->email;
+    }
+
+    // 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     // include all user's tweets as well as tweets of everyone they follow in descending order by date
@@ -49,7 +61,8 @@ class User extends Authenticatable
         $ids = $this->follows->pluck('id');
         //add the users id to that collection
         $ids->push($this->id);
-        return Tweet::whereIn('user_id', $ids)->latest()->get();
+
+        return Tweet::whereIn('user_id', $ids)->latest()->paginate(50);
     }
 
     public function tweets()
@@ -65,7 +78,7 @@ class User extends Authenticatable
     // this will be a string that  represents a path to the model
     public function path($append = '')
     {
-        $path = route('profile', $this->name);
+        $path = route('profile', $this->username);
 
         return $append ? "{$path}/{$append}" : $path;
     }
