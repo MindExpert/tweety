@@ -48,7 +48,6 @@ class User extends Authenticatable
         // return "https://i.pravatar.cc/200?u=" . $this->email;
     }
 
-    // 
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
@@ -58,16 +57,24 @@ class User extends Authenticatable
     public function timeline()
     {
         // get all Ids that the loged in user follows
-        $ids = $this->follows->pluck('id');
-        //add the users id to that collection
-        $ids->push($this->id);
+        $friends = $this->follows()->pluck('id');
 
-        return Tweet::whereIn('user_id', $ids)->latest()->paginate(50);
+        return Tweet::whereIn('user_id', $friends)
+            ->orWhere('user_id', $this->id)
+            ->withLikes()
+            ->orderByDesc('id')
+            ->paginate(50);
     }
+
 
     public function tweets()
     {
        return $this->hasMany(Tweet::class)->latest();
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function getRouteKeyName()

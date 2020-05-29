@@ -20,16 +20,25 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
 
-
 <body>
     <div id="app">
         <section class="px-8 py-4 mb-6">
             <header class="container mx-auto">
-                <img src="/images/logo.svg" alt="Tweety">
+                <h1>
+                    <a href="/tweets">
+                        <img
+                            src="/images/logo.svg"
+                            alt="Tweety"
+                        >
+                    </a>
+                </h1>
             </header>
         </section>
 
         {{ $slot }}
     </div>
+
+    <script src="http://unpkg.com/turbolinks"></script>
 </body>
+
 </html>

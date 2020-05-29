@@ -3,8 +3,8 @@
           action="/tweets/{{ $tweet->id }}/like"
     >
         @csrf
-        {{-- {{ $tweet->isLikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }} --}}
-        <div class="flex items-center mr-4 ">
+
+        <div class="flex items-center mr-4 {{ $tweet->isLikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
             <svg viewBox="0 0 20 20"
                  class="mr-1 w-3"
             >
@@ -25,7 +25,7 @@
             <button type="submit"
                     class="text-xs"
             >
-                {{ $tweet->likes ?: 0 }}
+                {{ $tweet->totalLikes ?: 0 }}
             </button>
         </div>
     </form>
@@ -36,8 +36,7 @@
         @csrf
         @method('DELETE')
 
-        {{-- {{ $tweet->isDislikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }} --}}
-        <div class="flex items-center ">
+        <div class="flex items-center {{ $tweet->isDislikedBy(current_user()) ? 'text-blue-500' : 'text-gray-500' }}">
             <svg viewBox="0 0 20 20"
                  class="mr-1 w-3"
             >
@@ -58,7 +57,7 @@
             <button type="submit"
                     class="text-xs"
             >
-                {{-- {{ $tweet->dislikes ?: 0 }} --}}
+                {{ $tweet->totalDislikes ?: 0 }}
             </button>
         </div>
     </form>
