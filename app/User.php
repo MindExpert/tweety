@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+    //Accesor
     public function getAvatarAttribute($value)
     {
         // asset is a helper function that creates a full URL to the asset in your application
@@ -48,6 +48,7 @@ class User extends Authenticatable
         // return "https://i.pravatar.cc/200?u=" . $this->email;
     }
 
+    //Mutators
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
